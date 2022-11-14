@@ -1,0 +1,217 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.27 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use restaurant;
+Database changed
+mysql> show tables;
++----------------------+
+| Tables_in_restaurant |
++----------------------+
+| chef                 |
+| customer             |
+| customerorder        |
+| dish                 |
+| feedback             |
+| manager              |
+| occupied_by          |
+| phone                |
+| staff                |
+| tables_in_restaurant |
+| waiter               |
++----------------------+
+11 rows in set (0.17 sec)
+
+mysql> desc customer;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| c_id       | int         | NO   | PRI | NULL    |       |
+| first_name | varchar(20) | YES  |     | NULL    |       |
+| last_name  | varchar(20) | YES  |     | NULL    |       |
+| date       | varchar(20) | YES  |     | NULL    |       |
+| time_in    | varchar(20) | YES  |     | NULL    |       |
+| time_out   | varchar(20) | YES  |     | NULL    |       |
+| address    | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.10 sec)
+
+mysql> insert into customer values(1234,'Ayush','Panchal','3/10/2022','4:23','5:12','175, Nanubhai Desai Rd, Sicka Nagar, Khetwadi');
+ERROR 1406 (22001): Data too long for column 'address' at row 1
+mysql> alter customer drop column address;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'customer drop column address' at line 1
+mysql> alter table customer drop column address;
+Query OK, 0 rows affected (2.79 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table customer add column address varchar(150);
+Query OK, 0 rows affected (0.47 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into customer values(1234,'Ayush','Panchal','3/10/2022','4:23','5:12','175, Nanubhai Desai Rd, Sicka Nagar, Khetwadi');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into customer values(5678,'Samay','Mehta','4/10/2022','5:29','6:02','9, Amar Indl.estate, A.k.road, Opp.lathia Rubber,sakinaka, Andheri (west)');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from customer;
++------+------------+-----------+-----------+---------+----------+---------------------------------------------------------------------------+
+| c_id | first_name | last_name | date      | time_in | time_out | address                                                                   |
++------+------------+-----------+-----------+---------+----------+---------------------------------------------------------------------------+
+| 1234 | Ayush      | Panchal   | 3/10/2022 | 4:23    | 5:12     | 175, Nanubhai Desai Rd, Sicka Nagar, Khetwadi                             |
+| 5678 | Samay      | Mehta     | 4/10/2022 | 5:29    | 6:02     | 9, Amar Indl.estate, A.k.road, Opp.lathia Rubber,sakinaka, Andheri (west) |
++------+------------+-----------+-----------+---------+----------+---------------------------------------------------------------------------+
+2 rows in set (0.01 sec)
+
+mysql> desc tables_in_restaurant;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| t_id     | int         | NO   | PRI | NULL    |       |
+| capacity | int         | YES  |     | NULL    |       |
+| location | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.06 sec)
+
+mysql> insert into tables_in_restaurant values(9101,4,'1st floor');
+Query OK, 1 row affected (0.20 sec)
+
+mysql> insert into tables_in_restaurant values(1121,6,'ground floor');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from tables_in_restaurant;
++------+----------+--------------+
+| t_id | capacity | location     |
++------+----------+--------------+
+| 1121 |        6 | ground floor |
+| 9101 |        4 | 1st floor    |
++------+----------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from occupied_by;
+Empty set (0.02 sec)
+
+mysql> insert into occupied_by values(1121,1234);
+Query OK, 1 row affected (0.15 sec)
+
+mysql> insert into occupied_by values(9101,5678);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from occupied_by;
++------+------+
+| t_id | c_id |
++------+------+
+| 1121 | 1234 |
+| 9101 | 5678 |
++------+------+
+2 rows in set (0.00 sec)
+
+mysql> desc feedback;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| f_id       | int          | NO   | PRI | NULL    |       |
+| tip        | int          | YES  |     | NULL    |       |
+| suggestion | varchar(100) | YES  |     | NULL    |       |
+| c_id       | int          | YES  | MUL | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.06 sec)
+
+mysql> insert into feedback values(3145,80,'Rice wasn't cooked well enough',1234);
+    '>
+    '>
+    '>
+    '>
+    '> ;
+    '> ;
+    '> ;
+    '> ;
+    '> ;
+    '> ;
+    '> ;\c
+    '> \c
+    '> \c
+    '> '
+    -> \c
+mysql> insert into feedback values(3145,80,'Rice wasnt cooked well enough',1234);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into feedback values(1617,50,'Great food I dont have any suggestions',1234);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from feedback;
++------+------+----------------------------------------+------+
+| f_id | tip  | suggestion                             | c_id |
++------+------+----------------------------------------+------+
+| 1617 |   50 | Great food I dont have any suggestions | 1234 |
+| 3145 |   80 | Rice wasnt cooked well enough          | 1234 |
++------+------+----------------------------------------+------+
+2 rows in set (0.00 sec)
+
+mysql> update feedback set c_id=5678 where f-
+    -> \c
+mysql> update feedback set c_id=5678 where f_id=3145;
+Query OK, 1 row affected (0.14 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from feedback;
++------+------+----------------------------------------+------+
+| f_id | tip  | suggestion                             | c_id |
++------+------+----------------------------------------+------+
+| 1617 |   50 | Great food I dont have any suggestions | 1234 |
+| 3145 |   80 | Rice wasnt cooked well enough          | 5678 |
++------+------+----------------------------------------+------+
+2 rows in set (0.00 sec)
+
+mysql> insert into phone values(1234,8928776049);
+ERROR 1264 (22003): Out of range value for column 'phone_number' at row 1
+mysql> insert into phone values(1234, 8928776049);
+ERROR 1264 (22003): Out of range value for column 'phone_number' at row 1
+mysql> alter table phone drop column phone_number;
+Query OK, 0 rows affected (1.37 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table phone add column phone_number int(20);
+Query OK, 0 rows affected, 1 warning (0.32 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> insert into phone values(1234, 8928776049);
+ERROR 1264 (22003): Out of range value for column 'phone_number' at row 1
+mysql> insert into staff values(1819,'Piyush','Pingalkar','4/8/2001','Male',21);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into staff values(2021,'Dhiraj','Pandya','23/7/2001','Male',21);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into staff values(2223,'Kushal','Pandey','15/9/2000','Male',22);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into order values(2425,892,56,1819,1234);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order values(2425,892,56,1819,1234)' at line 1
+mysql> insert into order values(2425,892,56,1819,1234,948);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order values(2425,892,56,1819,1234,948)' at line 1
+mysql> insert into customerorder values(2425,892,56,1819,1234,948);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into customerorder values(2627,1002,88,2021,5678,1090);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from customerorder;
++------+------------+------+----------+------+--------------+
+| o_id | totalrpice | tax  | staff_id | c_id | totalpayable |
++------+------------+------+----------+------+--------------+
+| 2425 |        892 |   56 |     1819 | 1234 |          948 |
+| 2627 |       1002 |   88 |     2021 | 5678 |         1090 |
++------+------------+------+----------+------+--------------+
+2 rows in set (0.00 sec)
+
+mysql>
