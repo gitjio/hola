@@ -1,0 +1,73 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 20
+Server version: 8.0.27 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use restaurant;
+Database changed
+mysql> desc customer;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| c_id       | int          | NO   | PRI | NULL    |       |
+| first_name | varchar(20)  | YES  |     | NULL    |       |
+| last_name  | varchar(20)  | YES  |     | NULL    |       |
+| date       | varchar(20)  | YES  |     | NULL    |       |
+| time_in    | varchar(20)  | YES  |     | NULL    |       |
+| time_out   | varchar(20)  | YES  |     | NULL    |       |
+| address    | varchar(150) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customer;
++------+------------+-----------+-----------+---------+----------+---------------------------------------------------------------------------+
+| c_id | first_name | last_name | date      | time_in | time_out | address                                                                   |
++------+------------+-----------+-----------+---------+----------+---------------------------------------------------------------------------+
+| 1234 | Ayush      | Panchal   | 3/10/2022 | 4:23    | 5:12     | 175, Nanubhai Desai Rd, Sicka Nagar, Khetwadi                             |
+| 3619 | Rahul      | Nadar     | 3/10/2022 | 6:51    | 7:38     | 432, Lal Marg Rd, Sector 6, Sanpada                                       |
+| 5678 | Samay      | Mehta     | 4/10/2022 | 5:29    | 6:02     | 9, Amar Indl.estate, A.k.road, Opp.lathia Rubber,sakinaka, Andheri (west) |
+| 9987 | Pranjal    | Parmar    | 3/10/2022 | 6:53    | 7:42     | 201, Shwetabh Marg Rd, Sector 7, Vashi                                    |
++------+------------+-----------+-----------+---------+----------+---------------------------------------------------------------------------+
+4 rows in set (0.00 sec)
+
+mysql> delimiter //
+mysql> create procedure custcount (IN dateinserted varchar(20), OUT customersOnThatDay int)
+    -> begin
+    -> select count(*) into customersOnThatDay from customer
+    -> where date = dateinserted;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call custcount('3/10/2022', @customersOnThatDay);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @customersOnThatDay;
++---------------------+
+| @customersOnThatDay |
++---------------------+
+|                   3               |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> create function sayhello (s varchar(20))
+    -> returns char(50) deterministic
+    -> return concat('Hello, ',s,'!');
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> select sayhello('Ayush');
++-------------------+
+| sayhello('Ayush') |
++-------------------+
+| Hello, Ayush!     |
++-------------------+
+1 row in set (0.03 sec)
+
+mysql>
