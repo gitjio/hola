@@ -1,0 +1,38 @@
+/* CSS3 selectors */
+
+.ad {
+    width: 500px;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+  
+  .ad:hover {
+    border-color: red;
+  }
+  
+  .ad-content {
+    padding: 10px;
+  }
+  
+  .ad-content button {
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  /* Pseudo classes */
+  
+  .ad:hover .ad-content {
+    background-color: yellow;
+  }
+  
+  /* Pseudo elements */
+  
+  .ad-content::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+  
