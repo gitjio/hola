@@ -1,0 +1,46 @@
+
+  /* Internal CSS */
+  
+  .product-id {
+    background-color: #eee;
+  }
+  
+  .product-name {
+    font-weight: bold;
+  }
+  
+  .quantity {
+    text-align: right;
+  }
+  
+  .price {
+    text-align: right;
+  }
+  
+  /* External CSS */
+  
+  body {
+    font-family: sans-serif;
+  }
+  
+  .add-new-product {
+    background-color: green;
+    color: white;
+    padding: 5px;
+    text-decoration: none;
+  }
+  
+  .edit-product {
+    background-color: orange;
+    color: white;
+    padding: 5px;
+    text-decoration: none;
+  }
+  
+  .delete-product {
+    background-color: red;
+    color: white;
+    padding: 5px;
+    text-decoration: none;
+  }
+  
